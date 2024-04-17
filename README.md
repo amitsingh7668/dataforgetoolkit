@@ -3,23 +3,43 @@
 
 DataForgeToolkit is a Python library for mapping CSV or Excel files based on JSON transformation mappings.
 
+# Description
 
-## Installation
+DataForgeToolkit: Flexible Data Mapping for CSV/XLSX Files
 
-Install my-project with npm
+The DataForgeToolkit is a Python library designed to streamline the process of converting CSV or Excel files into customized DataFrames based on user-defined JSON mapping configurations. Whether you're working with financial reports, customer datasets, or any other structured data, this toolkit empowers you to effortlessly transform raw data into actionable insights.
+
+Features:
+Versatile File Support: Seamlessly process both CSV and Excel files, providing flexibility in handling various data formats commonly encountered in data analysis tasks.
+
+Customizable Mapping: Define transformation mappings using a JSON file, allowing for precise specification of column names, data cleaning, and value substitutions tailored to your specific data requirements.
+
+Efficient Data Processing: Automate data preprocessing tasks such as handling missing values, standardizing column names, and applying complex value mappings with ease.
+
+
+## Installation Usage/Examples
+
 
 ```bash
   pip install dataforgetoolkit
 ```
     
-## Usage/Examples
+Define Transformation Mapping:
 
-```python
+Create a JSON file specifying the transformation mappings for your data. Define column mappings, specify new column names, and define value substitutions as needed.
+
+Use the Toolkit:
+
+Import the DataForgeToolkit in your Python script and utilize the map function to convert your report files:
+
+```bash
     from dataforgetoolkit import datamapper
-
-    mapped_data = datamapper.map(report_file_path, transformation_file_path)
-
+    datamapper.map('report file path csv / xlsx format','mapping json file path')
 ```
+
+Access Mapped Data:
+
+Access the transformed data as a DataFrame for further analysis or export to other formats.
 
 
 ## JSON Transformation Mapping
