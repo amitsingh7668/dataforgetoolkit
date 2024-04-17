@@ -1,11 +1,11 @@
 from setuptools import setup, find_packages
 
 setup(
-    name='datawizard',
+    name='dataforgetoolkit',
     version='0.1.0',
     setup_requires=['wheel'],
     packages=find_packages(),
-    url='https://github.com/amitsingh7668/datawizard',
+    url='https://github.com/amitsingh7668/dataforgetoolkit',
     license='Amit Singh',
     author='Amit Singh',
     author_email='2singh.amit3@gmail.com',
