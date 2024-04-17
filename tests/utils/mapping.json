@@ -1,0 +1,22 @@
+{
+    "transformation_mapping": [
+        {
+            "column": "Name",
+            "new_name": "Student Name",
+            "value_mappings": [
+                {
+                    "*": "Amit Singh"
+                }
+            ]
+        },
+        {
+            "column": "Age_Column",
+            "new_name": "Age",
+            "value_mappings": [
+                {
+                    "FILTER": "30"
+                }
+            ]
+        }
+    ]
+}
