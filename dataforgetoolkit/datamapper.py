@@ -14,7 +14,13 @@ def map(report_file_path, transformation_file_path):
     Returns:
         dict: Mapped data in dictionary format.
     """
-    df = df = pd.read_csv(report_file_path)
+    if report_file_path.endswith('.csv'):
+        df = pd.read_csv(report_file_path)
+    elif report_file_path.endswith('.xlsx'):
+        df = pd.read_excel(report_file_path)
+    else:
+        return {"error": "Unsupported file format. Only CSV and Excel files are supported."}
+
     df = df.fillna('')
     try:
         with open(transformation_file_path, "r") as json_file:
