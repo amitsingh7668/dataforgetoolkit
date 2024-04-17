@@ -1,6 +1,9 @@
 import pandas as pd
 import json
 from dataforgetoolkit.common_utils import *
+import logging
+
+logging.basicConfig(level=logging.INFO)
 
 def map(report_file_path, transformation_file_path):
     df = df = pd.read_csv(report_file_path)
@@ -35,10 +38,10 @@ def transform_model(df, transformation):
         value_mappings = transformation["value_mappings"]
 
         if old_name in df.columns:
-            print(f"Updating column '{old_name}' to '{new_name}'")
+            logging.info(f"Updating column '{old_name}' to '{new_name}'")
             df.rename(columns={old_name: new_name}, inplace=True)
 
-            print(f"Updating values in column '{new_name}'")
+            logging.info(f"Updating values in column '{new_name}'")
             for value_mapping in value_mappings:
                 for old_value, new_value in value_mapping.items():
                     df = mapping_criteria(df, new_name, old_value, new_value)

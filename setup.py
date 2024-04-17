@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='dataforgetoolkit',
-    version='0.1.0',
+    version='1.0.1',
     setup_requires=['wheel'],
     packages=find_packages(),
     url='https://github.com/amitsingh7668/dataforgetoolkit',
