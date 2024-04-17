@@ -1,8 +1,8 @@
 import pandas as pd
 import json
-from common_utils import *
+from dataforgetoolkit.common_utils import *
 
-def map_data(report_file_path, transformation_file_path):
+def map(report_file_path, transformation_file_path):
     df = df = pd.read_csv(report_file_path)
     df = df.fillna('')
     try:
