@@ -17,6 +17,25 @@
                     "FILTER": "30"
                 }
             ]
+        },
+        {
+            "column": "City",
+            "new_name": "Location",
+            "value_mappings": [
+                {
+                    "REPLACE_New York": "NYC"
+                }
+            ]
+        },
+        {
+            "column": "Gender",
+            "new_name": "Sex",
+            "value_mappings": [
+                {
+                    "MALE": "M",
+                    "FEMALE": "F"
+                }
+            ]
         }
     ]
 }

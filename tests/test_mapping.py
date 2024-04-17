@@ -8,14 +8,13 @@ parent_dir = os.path.dirname(current_dir)
 # Add the parent directory to the sys.path
 sys.path.insert(0, parent_dir)
 
-from datawizard.datamapper import map_data
+from dataforgetoolkit.datamapper import map
 
 
 def test_map_data():
-    report_file_path = "datawizard/datawizard/utils/data.csv"
-    transformation_file_path = "datawizard/datawizard/utils/mapping.json"
-    result = map_data(report_file_path, transformation_file_path)
+    report_file_path = "dataforgetoolkit/tests/utils/data.csv"
+    transformation_file_path = "dataforgetoolkit/tests/utils/mapping.json"
+    result = map(report_file_path, transformation_file_path)
     print(result)
     assert result == [{'Student Name': 'Amit Singh', 'Age': 30}, {
         'Student Name': 'Amit Singh', 'Age': 25}, {'Student Name': 'Amit Singh', 'Age': 35}]
-

@@ -1,11 +1,19 @@
 import pandas as pd
 import json
 from dataforgetoolkit.common_utils import *
-import logging
 
-logging.basicConfig(level=logging.INFO)
 
 def map(report_file_path, transformation_file_path):
+    """
+    Map a CSV or Excel file based on a JSON transformation mapping.
+
+    Args:
+        report_file_path (str): Path to the CSV or Excel file.
+        transformation_file_path (str): Path to the JSON transformation file.
+
+    Returns:
+        dict: Mapped data in dictionary format.
+    """
     df = df = pd.read_csv(report_file_path)
     df = df.fillna('')
     try:
@@ -23,6 +31,16 @@ def map(report_file_path, transformation_file_path):
 
 
 def transform_model(df, transformation):
+    """
+    Transform the DataFrame based on the provided transformation mapping.
+
+    Args:
+        df (DataFrame): Input DataFrame.
+        transformation (dict): Transformation mapping.
+
+    Returns:
+        DataFrame: Transformed DataFrame.
+    """
     # List of column names to keep
     column_names = [transformation["column"]
                     for transformation in transformation]
@@ -38,22 +56,50 @@ def transform_model(df, transformation):
         value_mappings = transformation["value_mappings"]
 
         if old_name in df.columns:
-            logging.info(f"Updating column '{old_name}' to '{new_name}'")
+            print(f"Updating column '{old_name}' to '{new_name}'")
             df.rename(columns={old_name: new_name}, inplace=True)
 
-            logging.info(f"Updating values in column '{new_name}'")
+            print(f"Updating values in column '{new_name}'")
             for value_mapping in value_mappings:
                 for old_value, new_value in value_mapping.items():
-                    df = mapping_criteria(df, new_name, old_value, new_value)
+                    df = apply_mapping_criteria(
+                        df, new_name, old_value, new_value)
                     df[new_name] = df[new_name].replace(old_value, new_value)
 
     return df
 
 
-def mapping_criteria(df, new_name, old_value, new_value):
-    if old_value == DAFULT_VALUE:
-        df[new_name] = new_value
-        pass
-    if old_value == FILTER_VALUE:
-        df = df[df[new_name] != new_value]
+def apply_mapping_criteria(df, column_name, old_value, new_value):
+    """
+    Apply mapping criteria to the DataFrame.
+
+    Args:
+        df (DataFrame): Input DataFrame.
+        column_name (str): Column name to apply mapping criteria.
+        old_value (str): Old value to be replaced.
+        new_value (str): New value.
+
+    Returns:
+        DataFrame: Transformed DataFrame.
+    """
+    if old_value == DEFAULT_VALUE:
+        df[column_name] = new_value
+    elif old_value == FILTER_VALUE:
+        df = df[df[column_name] != new_value]
+    elif old_value.startswith(REPLACE_VALUE):
+        # Replace substrings in column values
+        substring = old_value.split("_", 1)[1]
+        df[column_name] = df[column_name].str.replace(substring, new_value)
+    elif old_value == CONCAT_VALUE:
+        # Concatenate column values with a delimiter
+        delimiter = new_value
+        df[column_name] = df[column_name].apply(
+            lambda x: delimiter.join(x) if isinstance(x, list) else x)
+    elif old_value == UPPERCASE_VALUE:
+        # Convert column values to uppercase
+        df[column_name] = df[column_name].str.upper()
+    elif old_value == LOWERCASE_VALUE:
+        # Convert column values to lowercase
+        df[column_name] = df[column_name].str.lower()
+    # Add more conditions for other aggregations if needed
     return df
