@@ -4,4 +4,5 @@ REPLACE_VALUE = "REPLACE_"
 CONCAT_VALUE = "CONCAT"
 UPPERCASE_VALUE = "UPPERCASE"
 LOWERCASE_VALUE = "LOWERCASE"
+REGEX_VALUE = "REGEX_"
 # Path: dataforgetoolkit/dataforgetoolkit/common_utils.py

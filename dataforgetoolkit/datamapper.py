@@ -1,6 +1,10 @@
 import pandas as pd
 import json
 from dataforgetoolkit.common_utils import *
+import re
+import logging
+
+logging.basicConfig(level=logging.INFO)
 
 
 def map(report_file_path, transformation_file_path):
@@ -62,10 +66,10 @@ def transform_model(df, transformation):
         value_mappings = transformation["value_mappings"]
 
         if old_name in df.columns:
-            print(f"Updating column '{old_name}' to '{new_name}'")
+            logging.info(f"Updating column '{old_name}' to '{new_name}'")
             df.rename(columns={old_name: new_name}, inplace=True)
 
-            print(f"Updating values in column '{new_name}'")
+            logging.info(f"Updating values in column '{new_name}'")
             for value_mapping in value_mappings:
                 for old_value, new_value in value_mapping.items():
                     df = apply_mapping_criteria(
@@ -92,9 +96,12 @@ def apply_mapping_criteria(df, column_name, old_value, new_value):
         df[column_name] = new_value
     elif old_value == FILTER_VALUE:
         df = df[df[column_name] != new_value]
-    elif old_value.startswith(REPLACE_VALUE):
+    elif old_value.startswith("REPLACE_"):
         # Replace substrings in column values
         substring = old_value.split("_", 1)[1]
+        # Convert column values to strings
+        df[column_name] = df[column_name].astype(str)
+        # Use .str.replace() method
         df[column_name] = df[column_name].str.replace(substring, new_value)
     elif old_value == CONCAT_VALUE:
         # Concatenate column values with a delimiter
@@ -107,5 +114,11 @@ def apply_mapping_criteria(df, column_name, old_value, new_value):
     elif old_value == LOWERCASE_VALUE:
         # Convert column values to lowercase
         df[column_name] = df[column_name].str.lower()
+    elif old_value.startswith(REGEX_VALUE):
+        print(" ------ "+old_value)
+        # Apply regular expression pattern to column values
+        pattern = old_value.split("_", 1)[1]
+        df[column_name] = df[column_name].apply(
+            lambda x: re.sub(pattern, new_value, str(x)))
     # Add more conditions for other aggregations if needed
     return df

@@ -1,11 +1,9 @@
 
 # Project Title
 
-DataForgeToolkit is a Python library for mapping CSV or Excel files based on JSON transformation mappings.
+DataForgeToolkit: Flexible Data Mapping for CSV/XLSX Files
 
 # Description
-
-DataForgeToolkit: Flexible Data Mapping for CSV/XLSX Files
 
 The DataForgeToolkit is a Python library designed to streamline the process of converting CSV or Excel files into customized DataFrames based on user-defined JSON mapping configurations. Whether you're working with financial reports, customer datasets, or any other structured data, this toolkit empowers you to effortlessly transform raw data into actionable insights.
 
@@ -41,33 +39,75 @@ Access Mapped Data:
 
 Access the transformed data as a DataFrame for further analysis or export to other formats.
 
+## Transformation Functions Available
+
+```bash
+DEFAULT_VALUE = "*"
+FILTER_VALUE = "FILTER"
+REPLACE_VALUE = "REPLACE_"
+CONCAT_VALUE = "CONCAT"
+UPPERCASE_VALUE = "UPPERCASE"
+LOWERCASE_VALUE = "LOWERCASE"
+REGEX_VALUE = "REGEX_"
+```
+
 
 ## JSON Transformation Mapping
 
  Transformation mappings are specified using a JSON file. Example:
 
-    {
-        "transformation_mapping": [
-            {
-                "column": "Name",
-                "new_name": "Student Name",
-                "value_mappings": [
-                    {
-                        "*": "Amit Singh"
-                    }
-                ]
-            },
-            {
-                "column": "Age_Column",
-                "new_name": "Age",
-                "value_mappings": [
-                    {
-                        "FILTER": "30"
-                    }
-                ]
-            }
-        ]
-    }
+{
+    "transformation_mapping": [
+        {
+            "column": "Name",
+            "new_name": "Student Name",
+            "value_mappings": [
+                {
+                    "*": "Amit Singh"
+                }
+            ]
+        },
+        {
+            "column": "Age_Column",
+            "new_name": "Age",
+            "value_mappings": [
+                {
+                    "FILTER": "30"
+                }
+            ]
+        },
+        {
+            "column": "Location",
+            "new_name": "Country",
+            "value_mappings": [
+                {
+                    "REPLACE_usa": "United state of America"
+                }
+            ]
+        },
+        {
+            "column": "Gender",
+            "new_name": "Sex",
+            "value_mappings": [
+                {
+                    "MALE": "M",
+                    "FEMALE": "F"
+                }
+            ]
+        },
+        {
+            "column": "Zipcode_Column",
+            "new_name": "Processed_Text_regex",
+            "value_mappings": [
+                {
+                    "REPLACE_hello": "hi",
+                    "REGEX_[0-9]+": "NUMBER"
+                }
+            ]
+        }
+    ]
+}
+
 
 
 ## Authors

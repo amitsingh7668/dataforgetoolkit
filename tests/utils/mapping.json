@@ -19,11 +19,11 @@
             ]
         },
         {
-            "column": "City",
-            "new_name": "Location",
+            "column": "Location",
+            "new_name": "Country",
             "value_mappings": [
                 {
-                    "REPLACE_New York": "NYC"
+                    "REPLACE_usa": "United state of America"
                 }
             ]
         },
@@ -34,6 +34,16 @@
                 {
                     "MALE": "M",
                     "FEMALE": "F"
+                }
+            ]
+        },
+        {
+            "column": "Zipcode_Column",
+            "new_name": "Processed_Text_regex",
+            "value_mappings": [
+                {
+                    "REPLACE_hello": "hi",
+                    "REGEX_[0-9]+": "NUMBER"
                 }
             ]
         }
